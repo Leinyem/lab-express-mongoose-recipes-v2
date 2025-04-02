@@ -23,6 +23,11 @@ mongoose
 
 // ROUTES
 
+
+
+//  Iteration 3 - Create a Recipe route
+//  POST  /recipes route
+
 app.post("/recipes", (req, res)=>{
 
 Recipe.create({
@@ -38,17 +43,39 @@ created: req.body.created,
 
 })
 
-.then((createdRecipe))
+.then((createdRecipe)=>{
 
+res.status(201).json(createdRecipe);
 })
 
-//  Iteration 3 - Create a Recipe route
-//  POST  /recipes route
+.catch((err)=>{
 
+res.status(500).json({ message: "Couldn't create the recipe!"});
+
+});
+
+
+})
 
 //  Iteration 4 - Get All Recipes
 //  GET  /recipes route
 
+app.get('/recipes', (req, res) => {
+
+
+    Recipe.find()
+
+      .then((allRecipes) => {
+        res.status(200).json(allRecipes);
+      })
+
+
+      .catch((err) => {
+        res.status(500).json({ message: "We couldn't get all recipes!" });
+      });
+  
+  });
+  
 
 //  Iteration 5 - Get a Single Recipe
 //  GET  /recipes/:id route
